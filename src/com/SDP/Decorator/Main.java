@@ -1,49 +1,25 @@
 package com.SDP.Decorator;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        IBike bike = new BasicBike();
+        IPlayer player1 = new BasicPlayer();
+        IPlayer player2 = new StarPlayer();
 
-        System.out.println("Default: " + bike.getDesc() + ", Cost: " + bike.getCost() / 100);
+        System.out.println(player1.getDesc());
+        System.out.println("Rating: " + player1.getRating());
+        System.out.println("Cost: " + player1.getCost());
 
-        boolean continueAdding = true;
-        while (continueAdding) {
-            System.out.println("Available bike features (select 1-4):");
-            System.out.println("1. Basket option (29.99)");
-            System.out.println("2. Light option (18.99)");
-            System.out.println("3. Bell option (4.99)");
-            System.out.println("4. Complete Purchase");
+        System.out.println(player2.getDesc());
+        System.out.println("Rating: " + player2.getRating());
+        System.out.println("Cost: " + player2.getCost());
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    bike = new BasketDecorator(bike);
-                    System.out.println("Basket was added");
-                    break;
-                case 2:
-                    bike = new LightDecorator(bike);
-                    System.out.println("Light was added");
-                    break;
-                case 3:
-                    bike = new BellDecorator(bike);
-                    System.out.println("Bell was added");
-                    break;
-                case 4:
-                    continueAdding = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
-                    break;
-            }
-        }
-
-        System.out.println("Description: " + bike.getDesc());
-        System.out.println("Cost: " + bike.getCost() / 100);
-
-        scanner.close();
+        player1 = new ShootingDecorator(new SpeedDecorator(player1));
+        System.out.println(player1.getDesc());
+        System.out.println("Rating: " + player1.getRating());
+        System.out.println("Cost: " + player1.getCost());
+        player2 = new DribblingDecorator(player2);
+        System.out.println(player2.getDesc());
+        System.out.println("Rating: " + player2.getRating());
+        System.out.println("Cost: " + player2.getCost());
     }
 }
